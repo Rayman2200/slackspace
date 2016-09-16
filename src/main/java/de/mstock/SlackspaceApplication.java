@@ -6,9 +6,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SlackspaceApplication {
 
+  /**
+   * Slackspace Entry Point.
+   * 
+   * @param args command line arguments
+   */
   public static void main(String[] args) {
     // TODO: Start Neo4j via mvn
-    // Sonar in mvn build
     SpringApplication.run(SlackspaceApplication.class, args);
   }
 }
