@@ -1,4 +1,4 @@
-package de.mstock;
+package de.mstock.slackspace;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

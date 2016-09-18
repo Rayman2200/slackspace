@@ -1,3 +1,2 @@
 # Slackspace
-A Slack time management tool.
-
+A slack time management tool.
