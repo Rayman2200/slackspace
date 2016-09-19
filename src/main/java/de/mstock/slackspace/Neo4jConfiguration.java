@@ -1,5 +1,6 @@
 package de.mstock.slackspace;
 
+import org.apache.commons.lang3.StringUtils;
 import org.neo4j.ogm.config.Configuration;
 import org.neo4j.ogm.session.SessionFactory;
 import org.springframework.context.annotation.Bean;
@@ -14,9 +15,11 @@ public class Neo4jConfiguration {
    */
   @Bean
   public Configuration getConfiguration() {
+    String ip = StringUtils.defaultIfEmpty(System.getenv("DOCKER_HOST_IP"), "localhost");
     Configuration config = new Configuration();
     config.driverConfiguration()
-        .setDriverClassName("org.neo4j.ogm.drivers.embedded.driver.EmbeddedDriver");
+        .setDriverClassName("org.neo4j.ogm.drivers.http.driver.HttpDriver")
+        .setURI("http://" + ip + ":7474");
     return config;
   }
 
