@@ -14,6 +14,7 @@ public class Neo4jConfiguration {
    * @return configuration
    */
   @Bean
+  @SuppressWarnings("PMD.AvoidUsingHardCodedIP")
   public Configuration getConfiguration() {
     String ip = StringUtils.defaultIfEmpty(System.getenv("DOCKER_HOST_IP"), "localhost");
     Configuration config = new Configuration();

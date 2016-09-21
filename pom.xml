@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>slackspace</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Slackspace</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -51,6 +51,58 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+ 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.16.2</version>
+ 				<executions>
+					<execution>
+						<goals>
+							<goal>start</goal><!-- Is bound to the pre-integration-test phase -->
+							<goal>stop</goal><!-- Is bound to the post-integration-test phase -->
+						</goals>
+					</execution>
+				</executions>
+ 				<configuration>
+					<images>
+						<image>
+							<alias>database</alias>
+							<name>neo4j:3.0</name>
+							<run>
+								<ports>
+									<port>7474:7474</port>
+								</ports>
+								<env>
+									<NEO4J_AUTH>none</NEO4J_AUTH>
+								</env>
+								<wait>
+									<!-- The server produce this log:
+									07:08:05.129+0000 INFO  Starting...
+									07:08:05.741+0000 INFO  Bolt enabled on 0.0.0.0:7687.
+									07:08:08.898+0000 INFO  Started.
+									07:08:10.252+0000 INFO  Remote interface available at http://0.0.0.0:7474/
+									-->
+									<!--<log>Remote interface available at http://0.0.0.0:7474/</log>-->
+									<log>Started.</log>
+									<time>10000</time>
+								</wait>
+							</run>
+						</image>
+					</images>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
