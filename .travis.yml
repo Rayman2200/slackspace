@@ -4,3 +4,5 @@ jdk:
 
 services:
   - docker
+  
+script: mvn verify -B
